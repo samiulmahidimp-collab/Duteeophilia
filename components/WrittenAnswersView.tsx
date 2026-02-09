@@ -17,7 +17,7 @@ const WrittenAnswersView: React.FC<WrittenAnswersViewProps> = ({ onBack }) => {
     e.preventDefault();
     
     // Constructing the email body
-    const emailTo = "samiulmahid.official@gmail.com";
+    const emailTo = "samiulislammahid.official@gmail.com";
     const subject = "Dutee's Special Answers for Mahid";
     const body = `Hi Mahid,\n\nHere are Dutee's answers from the app:\n\n1. Tell something about Mahid?\n"${answers.about}"\n\n2. Why do you like him?\n"${answers.like}"\n\n3. Why is he special to you?\n"${answers.special}"\n\nLove,\nDutee`;
     
