@@ -1,11 +1,6 @@
 
 import React, { useState } from 'react';
-import { QuizQuestion } from '../types';
-
-interface QuizViewProps {
-  onBack: () => void;
-  onFinished: () => void;
-}
+import { QuizQuestion } from '../types.ts';
 
 const questions: QuizQuestion[] = [
   { question: "What is Mahid's absolute favorite colors?", options: ["Crimson & Gold", "Blue & White", "Emerald & Black", "Pink & Purple"], correctAnswer: 1 },
@@ -29,6 +24,11 @@ const questions: QuizQuestion[] = [
   { question: "What is the name of this app's hero?", options: ["Mahid", "Dutee", "Both", "None"], correctAnswer: 0 },
   { question: "How much does Mahid love Dutee?", options: ["A little", "A lot", "Infinitely", "More than anyone can imagine"], correctAnswer: 3 },
 ];
+
+interface QuizViewProps {
+  onBack: () => void;
+  onFinished: () => void;
+}
 
 const QuizView: React.FC<QuizViewProps> = ({ onBack, onFinished }) => {
   const [currentIdx, setCurrentIdx] = useState(0);

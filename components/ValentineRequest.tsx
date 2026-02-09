@@ -1,6 +1,6 @@
 
-import React, { useState, useRef, useEffect } from 'react';
-import { Position } from '../types';
+import React, { useState, useRef } from 'react';
+import { Position } from '../types.ts';
 
 interface ValentineRequestProps {
   onAccept: () => void;
@@ -10,7 +10,6 @@ const ValentineRequest: React.FC<ValentineRequestProps> = ({ onAccept }) => {
   const [noButtonPos, setNoButtonPos] = useState<Position>({ x: 0, y: 0 });
   const [isMoved, setIsMoved] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const yesButtonRef = useRef<HTMLButtonElement>(null);
 
   const moveButton = () => {
     if (!containerRef.current) return;
@@ -20,7 +19,6 @@ const ValentineRequest: React.FC<ValentineRequestProps> = ({ onAccept }) => {
     const buttonHeight = 52;
     const margin = 50;
 
-    // Calculate a random position within the container, avoiding the edges
     const maxX = containerRect.width - buttonWidth - margin;
     const maxY = containerRect.height - buttonHeight - margin;
     
@@ -60,7 +58,6 @@ const ValentineRequest: React.FC<ValentineRequestProps> = ({ onAccept }) => {
 
       <div className="flex flex-col sm:flex-row items-center justify-center gap-12 min-h-[200px] w-full relative">
         <button
-          ref={yesButtonRef}
           onClick={onAccept}
           className="px-16 py-5 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white text-2xl font-bold rounded-full shadow-2xl shadow-rose-200 transition-all hover:scale-110 active:scale-95 z-20"
         >
@@ -87,7 +84,7 @@ const ValentineRequest: React.FC<ValentineRequestProps> = ({ onAccept }) => {
         </button>
       </div>
       
-      <div className="mt-20 text-rose-400/50 text-sm font-medium tracking-widest uppercase">
+      <div className="mt-12 text-rose-400/50 text-sm font-medium tracking-widest uppercase">
         Clicking 'No' is not an option
       </div>
     </div>

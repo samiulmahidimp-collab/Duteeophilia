@@ -13,7 +13,6 @@ const SuccessView: React.FC<SuccessViewProps> = ({ onProceed }) => {
   const generateSpecialMessage = async () => {
     setLoading(true);
     try {
-      // Corrected initialization using process.env.API_KEY as per instructions
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
@@ -21,7 +20,7 @@ const SuccessView: React.FC<SuccessViewProps> = ({ onProceed }) => {
       });
       setMessage(response.text || "You've made me the happiest person in the world, Dutee.");
     } catch (error) {
-      console.error(error);
+      console.error("AI Generation Error:", error);
       setMessage("You've made me the happiest person in the world, Dutee.");
     } finally {
       setLoading(false);

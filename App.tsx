@@ -1,14 +1,14 @@
 
 import React, { useState } from 'react';
-import { AppState } from './types';
-import ValentineRequest from './components/ValentineRequest';
-import SuccessView from './components/SuccessView';
-import LoginForm from './components/LoginForm';
-import GalleryView from './components/GalleryView';
-import PostLoginChoice from './components/PostLoginChoice';
-import QuizView from './components/QuizView';
-import WrittenAnswersView from './components/WrittenAnswersView';
-import RelationshipStopwatch from './components/RelationshipStopwatch';
+import { AppState } from './types.ts';
+import ValentineRequest from './components/ValentineRequest.tsx';
+import SuccessView from './components/SuccessView.tsx';
+import LoginForm from './components/LoginForm.tsx';
+import GalleryView from './components/GalleryView.tsx';
+import PostLoginChoice from './components/PostLoginChoice.tsx';
+import QuizView from './components/QuizView.tsx';
+import WrittenAnswersView from './components/WrittenAnswersView.tsx';
+import RelationshipStopwatch from './components/RelationshipStopwatch.tsx';
 
 const App: React.FC = () => {
   const [state, setState] = useState<AppState>(AppState.ASKING);
@@ -44,16 +44,12 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-rose-50 via-white to-pink-50 overflow-hidden relative selection:bg-rose-200 selection:text-rose-900">
-      {/* Persistent Stopwatch */}
       <RelationshipStopwatch />
 
-      {/* Decorative background elements */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-20 left-20 w-64 h-64 bg-rose-200/30 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-pink-200/30 rounded-full blur-3xl animate-pulse delay-700" />
-        <div className="absolute top-1/2 left-1/3 w-32 h-32 bg-rose-300/10 rounded-full blur-2xl animate-bounce delay-1000" />
         
-        {/* Floating Hearts Background Overlay */}
         <div className="absolute inset-0 opacity-[0.03] flex flex-wrap gap-20 p-20">
           {Array.from({ length: 24 }).map((_, i) => (
             <svg key={i} className={`w-8 h-8 text-rose-900 animate-float`} style={{ animationDelay: `${i * 0.5}s`, animationDuration: `${5 + Math.random() * 5}s` }} fill="currentColor" viewBox="0 0 24 24">
@@ -63,12 +59,10 @@ const App: React.FC = () => {
         </div>
       </div>
       
-      {/* Main Content Area */}
-      <div className="relative z-10 w-full flex justify-center items-center px-4">
+      <div className="relative z-10 w-full flex justify-center items-center px-4 pb-20">
         {renderContent()}
       </div>
 
-      {/* Footer Branding */}
       <div className="fixed bottom-6 w-full text-center pointer-events-none">
         <p className="text-[10px] uppercase tracking-[0.5em] font-bold text-rose-300">
           Made with Love for Dutee
