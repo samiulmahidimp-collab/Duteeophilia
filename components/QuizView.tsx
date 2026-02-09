@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { QuizQuestion } from '../types.ts';
+import { QuizQuestion } from '../types';
 
 const questions: QuizQuestion[] = [
   { question: "What is Mahid's absolute favorite colors?", options: ["Crimson & Gold", "Blue & White", "Emerald & Black", "Pink & Purple"], correctAnswer: 1 },
