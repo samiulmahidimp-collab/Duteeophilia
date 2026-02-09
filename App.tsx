@@ -62,9 +62,9 @@ const App: React.FC = () => {
         {renderContent()}
       </div>
 
-      <div className="fixed bottom-6 w-full text-center pointer-events-none z-50">
-        <p className="text-[10px] uppercase tracking-[0.5em] font-bold text-rose-300">
-          Made with Love for Dutee
+      <div className="fixed bottom-8 left-8 text-left pointer-events-none z-50">
+        <p className="text-[11px] uppercase tracking-[0.4em] font-semibold text-rose-300/80">
+          Made with Love for <span className="text-rose-400 font-bold">Dutee</span>
         </p>
       </div>
     </div>

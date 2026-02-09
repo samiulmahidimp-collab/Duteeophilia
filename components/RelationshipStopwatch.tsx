@@ -10,15 +10,13 @@ const RelationshipStopwatch: React.FC = () => {
   });
 
   useEffect(() => {
-    // Relationship start date updated to Sept 8, 2025
+    // Relationship start date: Sept 8, 2025
     const startDate = new Date('2025-09-08T00:00:00');
 
     const updateTimer = () => {
       const now = new Date();
       const diff = now.getTime() - startDate.getTime();
 
-      // If the date is in the future, we show 0 or could show a countdown. 
-      // Keeping it as 0 until the date arrives as requested for a "stopwatch".
       if (diff <= 0) {
         setDuration({ months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 });
         return;
@@ -52,38 +50,34 @@ const RelationshipStopwatch: React.FC = () => {
   }, []);
 
   return (
-    <div className="fixed top-6 right-6 z-[100] pointer-events-none">
-      <div className="bg-white/95 backdrop-blur-3xl border-2 border-rose-200 px-8 py-6 rounded-[2.5rem] shadow-[0_20px_50px_rgba(255,182,193,0.4)] flex flex-col items-end gap-3 pointer-events-auto">
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <svg className="w-8 h-8 text-rose-500 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-            </svg>
-            <div className="absolute inset-0 bg-rose-400 rounded-full animate-ping opacity-30"></div>
-          </div>
-          <span className="text-[12px] uppercase tracking-[0.5em] font-black text-rose-600 whitespace-nowrap">Our Love Story</span>
+    <div className="fixed top-4 right-4 z-[100] pointer-events-none scale-90 md:scale-100 origin-top-right">
+      <div className="bg-white/95 backdrop-blur-3xl border border-rose-100 px-6 py-4 rounded-[2rem] shadow-xl flex flex-col items-end gap-2 pointer-events-auto">
+        <div className="flex items-center gap-2">
+          <svg className="w-5 h-5 text-rose-500 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+          </svg>
+          <span className="text-[10px] uppercase tracking-[0.4em] font-black text-rose-600 whitespace-nowrap">Relationship Age</span>
         </div>
         
-        <div className="flex gap-6 text-rose-950 font-mono font-black text-4xl">
+        <div className="flex gap-4 text-rose-950 font-mono font-black text-2xl">
           <div className="flex flex-col items-center">
-            <span className="text-rose-400 text-[10px] uppercase font-bold tracking-widest mb-1">Months</span>
+            <span className="text-rose-400 text-[8px] uppercase font-bold tracking-widest mb-1">Mo</span>
             <span className="tabular-nums">{duration.months}</span>
           </div>
-          <div className="w-px h-12 bg-rose-100 self-center"></div>
           <div className="flex flex-col items-center">
-            <span className="text-rose-400 text-[10px] uppercase font-bold tracking-widest mb-1">Days</span>
+            <span className="text-rose-400 text-[8px] uppercase font-bold tracking-widest mb-1">Day</span>
             <span className="tabular-nums">{duration.days}</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-rose-400 text-[10px] uppercase font-bold tracking-widest mb-1">Hrs</span>
+            <span className="text-rose-400 text-[8px] uppercase font-bold tracking-widest mb-1">Hr</span>
             <span className="tabular-nums">{duration.hours}</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-rose-400 text-[10px] uppercase font-bold tracking-widest mb-1">Min</span>
+            <span className="text-rose-400 text-[8px] uppercase font-bold tracking-widest mb-1">Min</span>
             <span className="tabular-nums">{duration.minutes}</span>
           </div>
-          <div className="flex flex-col items-center w-16">
-            <span className="text-rose-400 text-[10px] uppercase font-bold tracking-widest mb-1">Sec</span>
+          <div className="flex flex-col items-center w-10">
+            <span className="text-rose-400 text-[8px] uppercase font-bold tracking-widest mb-1">Sec</span>
             <span className="text-rose-600 tabular-nums">{duration.seconds}</span>
           </div>
         </div>
