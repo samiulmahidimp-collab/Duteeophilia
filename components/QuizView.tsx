@@ -13,7 +13,7 @@ const questions: QuizQuestion[] = [
   { question: "Which sport does Mahid love to play?", options: ["Football", "Cricket", "Volleyball", "Basketball"], correctAnswer: 2 },
   { question: "Where is Mahid's native village?", options: ["Dhaka", "Sylhet", "Brahmanbaria", "Cumilla"], correctAnswer: 2 },
   { question: "What are Mahid's favorite snacks to have?", options: ["Chips & Soda", "Chanachur & Bhelpuri", "Fries & Wings", "Samosa & Tea"], correctAnswer: 1 },
-  { question: "Mountains or Sea? What does Mahid prefer for travel?", options: ["Sea", "Mountains", "Both equally", "None"], correctAnswer: 2 },
+  { question: "Mountains or Sea? What does Mahid prefer for travel?", options: ["Sea", "Mountains", "Both", "None"], correctAnswer: 2 },
   { question: "What's Mahid's favorite genre in movies?", options: ["Action", "Horror", "Romance", "Comedy"], correctAnswer: 2 },
   { question: "Which movie were we watching on our very first date?", options: ["Insidious", "Conjuring", "Notebook", "Annabelle"], correctAnswer: 1 },
   { question: "When did our relation officially begin?", options: ["1st Jan 2025", "14th Feb 2025", "8th Sept 2025", "10th Oct 2025"], correctAnswer: 2 },
@@ -35,15 +35,24 @@ const QuizView: React.FC<QuizViewProps> = ({ onBack, onFinished }) => {
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [userAnswers, setUserAnswers] = useState<number[]>([]);
+  const [selectedInCurrent, setSelectedInCurrent] = useState<number | null>(null);
 
-  const handleAnswer = (selected: number) => {
-    const newUserAnswers = [...userAnswers, selected];
-    setUserAnswers(newUserAnswers);
+  const handleAnswerSelection = (selected: number) => {
+    if (selectedInCurrent !== null) return;
+    setSelectedInCurrent(selected);
     
     if (selected === questions[currentIdx].correctAnswer) {
       setScore(s => s + 1);
     }
+  };
 
+  const goToNext = () => {
+    if (selectedInCurrent === null) return;
+    
+    const newUserAnswers = [...userAnswers, selectedInCurrent];
+    setUserAnswers(newUserAnswers);
+    setSelectedInCurrent(null);
+    
     if (currentIdx < questions.length - 1) {
       setCurrentIdx(currentIdx + 1);
     } else {
@@ -72,7 +81,7 @@ const QuizView: React.FC<QuizViewProps> = ({ onBack, onFinished }) => {
 
           <div className="w-full max-h-[40vh] overflow-y-auto mb-10 pr-2 scrollbar-thin scrollbar-thumb-rose-200 scrollbar-track-transparent">
             <h3 className="text-left text-rose-900 font-bold uppercase tracking-widest text-xs mb-4 border-b border-rose-100 pb-2">Review Your Answers</h3>
-            <div className="space-y-4">
+            <div className="space-y-4 text-left">
               {questions.map((q, idx) => {
                 const isCorrect = userAnswers[idx] === q.correctAnswer;
                 return (
@@ -119,7 +128,7 @@ const QuizView: React.FC<QuizViewProps> = ({ onBack, onFinished }) => {
   }
 
   const q = questions[currentIdx];
-  const progress = ((currentIdx + 1) / questions.length) * 100;
+  const progress = ((currentIdx + (selectedInCurrent !== null ? 1 : 0)) / questions.length) * 100;
 
   return (
     <div className="relative z-10 w-full max-w-2xl px-6 animate-in slide-in-from-bottom-10 duration-700">
@@ -143,16 +152,63 @@ const QuizView: React.FC<QuizViewProps> = ({ onBack, onFinished }) => {
         </h3>
 
         <div className="grid grid-cols-1 gap-4">
-          {q.options.map((opt, i) => (
-            <button
-              key={i}
-              onClick={() => handleAnswer(i)}
-              className="w-full text-left px-6 py-4 bg-white border-2 border-rose-50 text-rose-800 rounded-2xl hover:border-rose-400 hover:bg-rose-50 transition-all transform hover:-translate-y-1 active:scale-95 font-medium shadow-sm hover:shadow-md"
-            >
-              {opt}
-            </button>
-          ))}
+          {q.options.map((opt, i) => {
+            const isCorrect = i === q.correctAnswer;
+            const isSelected = i === selectedInCurrent;
+            const revealed = selectedInCurrent !== null;
+            
+            let btnClass = "w-full text-left px-6 py-4 rounded-2xl transition-all font-medium shadow-sm outline-none ";
+            
+            if (!revealed) {
+              btnClass += "bg-white border-2 border-rose-50 text-rose-800 hover:border-rose-400 hover:bg-rose-50 transform hover:-translate-y-1 active:scale-95";
+            } else {
+              if (isCorrect) {
+                btnClass += "bg-emerald-100 border-2 border-emerald-500 text-emerald-800 animate-pulse";
+              } else if (isSelected) {
+                btnClass += "bg-rose-100 border-2 border-rose-500 text-rose-800 opacity-60";
+              } else {
+                btnClass += "bg-white border-2 border-rose-50 text-rose-300 opacity-40 cursor-not-allowed";
+              }
+            }
+
+            return (
+              <button
+                key={i}
+                disabled={revealed}
+                onClick={() => handleAnswerSelection(i)}
+                className={btnClass}
+              >
+                <div className="flex justify-between items-center">
+                  <span>{opt}</span>
+                  {revealed && isCorrect && (
+                    <svg className="w-6 h-6 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                  {revealed && isSelected && !isCorrect && (
+                    <svg className="w-6 h-6 text-rose-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                </div>
+              </button>
+            );
+          })}
         </div>
+
+        {selectedInCurrent !== null && (
+          <div className="mt-8 animate-in slide-in-from-top-2 fade-in duration-300">
+            <button
+              onClick={goToNext}
+              className="w-full py-4 bg-gradient-to-r from-rose-500 to-pink-600 text-white rounded-2xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] flex items-center justify-center gap-3"
+            >
+              <span>{currentIdx < questions.length - 1 ? 'Next Question' : 'See My Results'}</span>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
