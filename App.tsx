@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { AppState } from './types.ts';
 import ValentineRequest from './components/ValentineRequest.tsx';
@@ -46,11 +45,11 @@ const App: React.FC = () => {
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-rose-50 via-white to-pink-50 overflow-hidden relative selection:bg-rose-200 selection:text-rose-900">
       <RelationshipStopwatch />
 
-      <div className="fixed inset-0 pointer-events-none">
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-20 left-20 w-64 h-64 bg-rose-200/30 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-pink-200/30 rounded-full blur-3xl animate-pulse delay-700" />
         
-        <div className="absolute inset-0 opacity-[0.03] flex flex-wrap gap-20 p-20">
+        <div className="absolute inset-0 opacity-[0.03] flex flex-wrap gap-20 p-20 overflow-hidden">
           {Array.from({ length: 24 }).map((_, i) => (
             <svg key={i} className={`w-8 h-8 text-rose-900 animate-float`} style={{ animationDelay: `${i * 0.5}s`, animationDuration: `${5 + Math.random() * 5}s` }} fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
@@ -59,7 +58,7 @@ const App: React.FC = () => {
         </div>
       </div>
       
-      <div className="relative z-10 w-full flex justify-center items-center px-4 pb-20">
+      <div className="relative z-10 w-full flex justify-center items-center px-4 pb-20 overflow-hidden">
         {renderContent()}
       </div>
 

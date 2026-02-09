@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { Position } from '../types.ts';
 
@@ -82,10 +81,6 @@ const ValentineRequest: React.FC<ValentineRequestProps> = ({ onAccept }) => {
         >
           No
         </button>
-      </div>
-      
-      <div className="mt-12 text-rose-400/50 text-sm font-medium tracking-widest uppercase">
-        Clicking 'No' is not an option
       </div>
     </div>
   );
